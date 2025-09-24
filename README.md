@@ -146,3 +146,33 @@ docker run -p 3000:3000 mcp-proxy-go --command "go run fixtures/simple_stdio_ser
 The default Dockerfile uses a multi-stage build and a `scratch` final image for maximum security and minimal size. Only the compiled binary, README, and LICENSE are included in the final image.
 
 > **Note:** If you want to use a different fixture or server, mount it or build a custom image.
+
+## Using MCP Proxy Go as a Base Image for Custom MCP Servers
+
+You can use the `mcp-proxy-go` Docker image as a base for your own Dockerfiles to run custom MCP servers (e.g., built with Node.js/NPM).
+
+### Example: Multi-stage Dockerfile with Node.js MCP Server
+
+```dockerfile
+# Stage 1: Build your Node.js MCP server
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# Stage 2: Use mcp-proxy-go as the base
+FROM mcp-proxy-go:latest
+WORKDIR /app
+COPY --from=builder /app/dist /app/server
+COPY --from=builder /app/package.json /app/server/
+COPY --from=builder /app/node_modules /app/server/node_modules
+
+# Optionally override entrypoint to run both processes
+ENTRYPOINT ["/app/mcp-proxy", "--command", "node", "--args", "server/index.js"]
+```
+
+This lets you combine the Go proxy with your own MCP server built using NPM. You can also mount your MCP server code at runtime:
+
+```sh
+docker run -p 3000:3000 -v $(pwd)/my-server:/app/server mcp-proxy-go:latest --command "node" --args "server/index.js"
+```
