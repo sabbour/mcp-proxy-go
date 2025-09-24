@@ -1,5 +1,9 @@
 name: Build and Release
 
+permissions:
+  contents: write
+  packages: write
+
 on:
   workflow_dispatch: 
   push:
@@ -91,6 +95,7 @@ jobs:
         generate_release_notes: true
         draft: false
         prerelease: ${{ contains(steps.version.outputs.version, '-') }}
+        token: ${{ secrets.GITHUB_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

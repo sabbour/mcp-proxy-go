@@ -8,7 +8,6 @@ RUN go build -ldflags="-s -w" -o mcp-proxy ./cmd/mcp-proxy
 FROM scratch
 WORKDIR /app
 COPY --from=builder /app/mcp-proxy ./mcp-proxy
-COPY README.md ./README.md
 COPY LICENSE ./LICENSE
 EXPOSE 3000
 ENTRYPOINT ["/app/mcp-proxy"]

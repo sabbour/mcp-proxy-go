@@ -5,7 +5,6 @@ bin/
 *.sh
 .git/
 .gitignore
-LICENSE
 Dockerfile
 build-optimized.sh
 build-docker.sh
