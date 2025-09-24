@@ -1,0 +1,12 @@
+# Ignore build/test/dev files and directories
+fixtures/
+bin/
+*.md
+*.sh
+.git/
+.gitignore
+LICENSE
+Dockerfile
+build-optimized.sh
+build-docker.sh
+tag-release.sh

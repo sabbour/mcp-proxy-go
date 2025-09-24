@@ -42,8 +42,6 @@ declare -A platforms=(
     ["windows/arm64"]="mcp-proxy-windows-arm64.exe"
     ["linux/amd64"]="mcp-proxy-linux-amd64"
     ["linux/arm64"]="mcp-proxy-linux-arm64"
-    ["darwin/amd64"]="mcp-proxy-darwin-amd64"
-    ["darwin/arm64"]="mcp-proxy-darwin-arm64"
 )
 
 # Build for each platform

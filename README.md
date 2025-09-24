@@ -86,9 +86,8 @@ This is an **experimental port** with the following considerations:
 # Run tests
 go test ./tests/...
 
-# Test with MCP Inspector
-./mcp-proxy --command "go run fixtures/time_server.go" --port 3001
-# Then connect MCP Inspector to http://localhost:3001/mcp
+# Test 
+ ./mcp-proxy --host 127.0.0.1 --port 3001 -command "go run fixtures/time_server.go"
 
 # Test with curl
 curl -X POST http://localhost:3001/mcp \
@@ -131,3 +130,19 @@ internal/stdio     Stdio client transport
 - The sample fixture reproduces the same resources exposed by the TypeScript tests.
 - Additional transports (e.g., tap transport) can be implemented on top of the `mcp.Transport`
   interface introduced here.
+
+## Docker Usage
+
+You can build and run the MCP proxy in a minimal container using Docker:
+
+```bash
+# Build the image
+docker build -t mcp-proxy-go .
+
+# Run the proxy (example: with a fixture server)
+docker run -p 3000:3000 mcp-proxy-go --command "go run fixtures/simple_stdio_server.go"
+```
+
+The default Dockerfile uses a multi-stage build and a `scratch` final image for maximum security and minimal size. Only the compiled binary, README, and LICENSE are included in the final image.
+
+> **Note:** If you want to use a different fixture or server, mount it or build a custom image.

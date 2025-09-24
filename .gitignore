@@ -1,0 +1,31 @@
+# Go build artifacts
+bin/
+*.exe
+*.out
+*.test
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Dependency files
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test cache
+__pycache__/
+
+# Logs
+*.log
+
+# MCP proxy generated files
+checksums.txt
+
+# GitHub Actions
+.github/
