@@ -24,7 +24,6 @@ jobs:
       run: go test ./tests/...
 
   build:
-    needs: test
     runs-on: ubuntu-latest
     
     steps:
